@@ -11,9 +11,9 @@ from concurrent.futures import ThreadPoolExecutor
 class InventoryCollector:
     """Main orchestrator for the inventory collection process"""
     
-    def __init__(self, max_workers: int = 10):
+    def __init__(self, max_workers: int = 10, config_path: str = "src/configs/command_configs.yaml"):
         self.device_manager = DeviceManager()
-        self.command_runner = CommandRunner()
+        self.command_runner = CommandRunner(config_path)
         self.output_parser = OutputParser()
         self.logger = logging.getLogger(__name__)
         self.executor = ThreadPoolExecutor(max_workers=max_workers)

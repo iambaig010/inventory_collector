@@ -6,8 +6,9 @@ import queue
 import os
 import logging
 from datetime import datetime
-from ..core.inventory_collector import InventoryCollector
-from ..utils.excel_handler import ExcelHandler
+from src.core.inventory_collector import InventoryCollector
+from src.utils.excel_handler import ExcelHandler
+
 
 class MainWindow:
     def __init__(self):

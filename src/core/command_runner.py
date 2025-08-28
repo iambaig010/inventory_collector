@@ -35,9 +35,9 @@ from .device_manager import NetworkDevice
 
 class CommandRunner:
     def __init__(self, config_path: Optional[str] = None):
+        self.logger = logging.getLogger(__name__)  # init first
         self.ssh_connector = SSHConnector()
         self.vendor_configs = self.load_vendor_configs(config_path)
-        self.logger = logging.getLogger(__name__)
         
     def load_vendor_configs(self, config_path: str) -> Dict[str, Any]:
         """Load vendor configurations from YAML file"""
