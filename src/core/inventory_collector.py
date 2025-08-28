@@ -5,15 +5,18 @@ from typing import List, Dict, Any, Callable, Optional
 from .device_manager import DeviceManager, NetworkDevice
 from .command_runner import CommandRunner
 from .output_parser import OutputParser
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 class InventoryCollector:
     """Main orchestrator for the inventory collection process"""
     
-    def __init__(self):
+    def __init__(self, max_workers: int = 10):
         self.device_manager = DeviceManager()
         self.command_runner = CommandRunner()
         self.output_parser = OutputParser()
         self.logger = logging.getLogger(__name__)
+        self.executor = ThreadPoolExecutor(max_workers=max_workers)
         
     def collect_inventory(self, 
                          devices_file: str, 
@@ -97,6 +100,27 @@ class InventoryCollector:
         self.logger.info(f"Inventory collection complete. Processed {len(parsed_results)} devices")
         return parsed_results
         
+    async def collect_inventory_async(self, devices_file: str,
+                                    progress_callback: Optional[Callable] = None) -> List[Dict[str, Any]]:
+        """Asynchronous inventory collection"""
+        devices = self.device_manager.load_from_excel(devices_file)
+        loop = asyncio.get_event_loop()
+        
+        tasks = [
+            loop.run_in_executor(self.executor, self.collect_device_data, device)
+            for device in devices
+        ]
+        
+        results = []
+        for i, task in enumerate(asyncio.as_completed(tasks)):
+            result = await task
+            results.append(result)
+            if progress_callback:
+                progress_callback("collecting", len(devices), i + 1, 
+                                f"Collected {result['device_info']['hostname']}")
+                
+        return results
+
     def get_collection_summary(self, results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Generate summary statistics from collection results"""
         total_devices = len(results)

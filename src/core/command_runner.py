@@ -1,12 +1,40 @@
 # src/core/command_runner.py
+from typing import Dict, List, Optional, Any
+from pathlib import Path
 import yaml
 import logging
-from typing import Dict, Any, List
+from functools import wraps
+import time
+
+# Try to import backoff, create fallback if not available
+try:
+    import backoff
+    def retry_with_backoff(retries=3):
+        return backoff.on_exception(backoff.expo, Exception, max_tries=retries)
+except ImportError:
+    # Fallback decorator if backoff is not installed
+    def retry_with_backoff(retries=3):
+        def decorator(func):
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                last_exception = None
+                for attempt in range(retries):
+                    try:
+                        return func(*args, **kwargs)
+                    except Exception as e:
+                        last_exception = e
+                        if attempt < retries - 1:
+                            time.sleep(2 ** attempt)  # Simple exponential backoff
+                if last_exception:
+                    raise last_exception
+            return wrapper
+        return decorator
+
 from .ssh_connector import SSHConnector
 from .device_manager import NetworkDevice
 
 class CommandRunner:
-    def __init__(self, config_path='config/vendors.yaml'):
+    def __init__(self, config_path: Optional[str] = None):
         self.ssh_connector = SSHConnector()
         self.vendor_configs = self.load_vendor_configs(config_path)
         self.logger = logging.getLogger(__name__)
@@ -38,8 +66,9 @@ class CommandRunner:
             }
         }
         
+    @retry_with_backoff(retries=3)  # Replace backoff.on_exception with our decorator
     def run_device_commands(self, device: NetworkDevice) -> Dict[str, Any]:
-        """Run all commands for a device and return results"""
+        """Execute commands with retry mechanism"""
         result = {
             'device_info': {
                 'hostname': device.hostname,
