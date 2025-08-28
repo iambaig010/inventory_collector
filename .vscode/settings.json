@@ -1,0 +1,18 @@
+{
+    "python.defaultInterpreterPath": "./venv/bin/python",
+    "python.analysis.extraPaths": [
+        "./src",
+        "./tests"
+    ],
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "tests",
+        "--tb=short",
+        "-v"
+    ],
+    "python.testing.cwd": "${workspaceFolder}",
+    "files.associations": {
+        "*.py": "python"
+    }
+}

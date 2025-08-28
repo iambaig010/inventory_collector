@@ -1,0 +1,46 @@
+cisco_ios:
+  show interfaces status: 'Port      Name               Status       Vlan       Duplex  Speed
+    Type
+
+    Gi0/1                        notconnect   1            auto   auto 10/100/1000BaseTX
+
+    Gi0/2                        connected    1          a-full  a-100 10/100/1000BaseTX
+
+    Gi0/3                        connected    10         a-full a-1000 10/100/1000BaseTX
+
+    Gi0/4                        disabled     1            auto   auto 10/100/1000BaseTX
+
+    '
+  show ip interface brief: 'Interface              IP-Address      OK? Method Status                Protocol
+
+    FastEthernet0/1        unassigned      YES unset  up                    up
+
+    GigabitEthernet0/1     192.168.1.1     YES manual up                    up
+
+    GigabitEthernet0/2     unassigned      YES unset  up                    up
+
+    Vlan1                  unassigned      YES unset  down                  down
+
+    '
+  show version: 'Cisco IOS Software, C2960 Software (C2960-LANBASEK9-M), Version 15.0(2)SE4
+
+    Technical Support: http://www.cisco.com/techsupport
+
+    Copyright (c) 1986-2013 by Cisco Systems, Inc.
+
+    Compiled Wed 26-Jun-13 02:49 by prod_rel_team
+
+
+    ROM: Bootstrap program is C2960 boot loader
+
+    BOOTLDR: C2960 Boot Loader (C2960-HBOOT-M) Version 12.2(58r)SE, RELEASE SOFTWARE
+    (fc1)
+
+
+    TEST-DEVICE uptime is 1 week, 2 days, 14 hours, 23 minutes
+
+    System returned to ROM by power-on
+
+    System image file is "flash:/c2960-lanbasek9-mz.150-2.SE4.bin"
+
+    '

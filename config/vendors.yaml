@@ -1,0 +1,27 @@
+# config/vendors.yaml
+vendors:
+  cisco_ios:
+    display_name: "Cisco IOS"
+    commands:
+      version: "show version"
+      interfaces: "show ip interface brief"
+      inventory: "show inventory"
+    timeout: 30
+    delay_factor: 1
+    
+  cisco_xe:
+    display_name: "Cisco IOS XE"
+    commands:
+      version: "show version"
+      interfaces: "show ip interface brief"
+      inventory: "show inventory"
+    timeout: 30
+    delay_factor: 1
+    
+  hp_procurve:
+    display_name: "HP ProCurve"
+    commands:
+      version: "show system"
+      interfaces: "show interfaces brief"
+    timeout: 20
+    delay_factor: 1
