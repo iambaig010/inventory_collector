@@ -1,17 +1,156 @@
 vendors:
   cisco_ios:
     commands:
-      version: show version
-      interfaces: show ip interface brief
-      inventory: show inventory
+      version: "show version"
+      interfaces: "show ip interface brief"
+      inventory: "show inventory"
+      status: "show interfaces status"
     timeout: 30
     delay_factor: 1
-    
+
   cisco_xe:
     commands:
-      version: show version
-      interfaces: show ip interface brief
-      inventory: show inventory
-      platform: show platform
+      version: "show version"
+      inventory: "show inventory"
+      interfaces: "show ip interface brief"
+      platform: "show platform"
+      status: "show interfaces status"
     timeout: 30
     delay_factor: 1
+
+  hirschmann:
+    commands:
+      version: "show version"
+      system: "show system info"
+      mac_table: "show mac-address-table"
+    timeout: 30
+    delay_factor: 1
+  arista_eos:
+    commands:
+      version: "show version"
+      interfaces: "show interfaces"
+      inventory: "show inventory"
+      status: "show interfaces status"    
+    timeout: 30
+    delay_factor: 1 
+  juniper_junos:
+    commands:
+      version: "show version"
+      interfaces: "show interfaces terse"
+      inventory: "show chassis hardware"
+      status: "show interfaces terse"   
+    timeout: 30
+    delay_factor: 1 
+  hp_procurve:
+    commands:
+      version: "show version"
+      interfaces: "show interfaces"     
+      inventory: "show inventory"
+      status: "show interfaces status"   
+    timeout: 30
+    delay_factor: 1 
+  dell_os10:
+    commands:
+      version: "show version"
+      interfaces: "show interfaces"     
+      inventory: "show inventory"
+      status: "show interfaces status"   
+    timeout: 30
+    delay_factor: 1 
+  dell_os6:
+    commands:
+      version: "show version"     
+      interfaces: "show interfaces"     
+      inventory: "show inventory"
+      status: "show interfaces status"   
+    timeout: 30
+    delay_factor: 1 
+  ubiquiti_edgeos:
+    commands:
+      version: "show version"     
+      interfaces: "show interfaces"     
+      inventory: "show inventory"
+      status: "show interfaces status"   
+    timeout: 30
+    delay_factor: 1 
+  mikrotik_routeros:
+    commands:
+      version: "system resource print"   
+      interfaces: "interface print"   
+      inventory: "system hardware print"
+      status: "interface print"   
+    timeout: 30
+    delay_factor: 1 
+  fortinet_fortios:
+    commands:
+      version: "get system status"   
+      interfaces: "get system interface physical"   
+      inventory: "get hardware status"  
+      status: "get system interface physical"
+    timeout: 30
+    delay_factor: 1 
+  paloalto_pan_os:
+    commands:
+      version: "show system info"   
+      interfaces: "show interfaces all"   
+      inventory: "show system hardware"  
+      status: "show interfaces all"   
+    timeout: 30
+    delay_factor: 1 
+  cisco_nxos:
+    commands:
+      version: "show version"
+      inventory: "show inventory"
+      interfaces: "show interface brief"
+      status: "show interface status"
+    timeout: 30
+    delay_factor: 1   
+  huawei_vrp:
+    commands:
+      version: "display version"
+      inventory: "display device" 
+      interfaces: "display interface brief"
+      status: "display interface brief"
+    timeout: 30
+    delay_factor: 1 
+  huawei_evs:
+    commands:
+      version: "display version"
+      inventory: "display device" 
+      interfaces: "display interface brief"
+      status: "display interface brief"
+    timeout: 30
+    delay_factor: 1 
+  ciena_saos:
+    commands:
+      version: "show version"
+      inventory: "show inventory"
+      interfaces: "show interfaces"
+      status: "show interfaces status"
+    timeout: 30 
+    delay_factor: 1 
+  extreme_exos:
+    commands:
+      version: "show version"   
+      inventory: "show inventory"
+      interfaces: "show ports"
+      status: "show ports"   
+    timeout: 30
+    delay_factor: 1 
+  alcatel_sros:
+    commands:
+      version: "show version"
+      inventory: "show system hardware"
+      interfaces: "show interfaces"
+      status: "show interfaces"   
+    timeout: 30
+    delay_factor: 1
+  avaya_vsp:
+    commands:
+      version: "show version"
+      inventory: "show inventory"
+      interfaces: "show interfaces"
+      status: "show interfaces status"
+    timeout: 30
+    delay_factor: 1 
+    

@@ -1,5 +1,6 @@
 # src/core/output_parser.py
 import logging
+import re
 from typing import Dict, Any, Optional
 from ..parsers.cisco_parser import CiscoParser
 from ..parsers.base_parser import BaseParser
@@ -10,7 +11,8 @@ class OutputParser:
             'cisco_ios': CiscoParser(),
             'cisco_xe': CiscoParser(),  # Same as IOS for now
             'cisco_asa': CiscoParser(),
-            # Add more parsers as needed
+            'ats': None,       # ATS devices
+            'io_module': None  # IO modules
         }
         self.logger = logging.getLogger(__name__)
         
@@ -18,26 +20,44 @@ class OutputParser:
         """Parse raw command output using appropriate vendor parser"""
         parser = self.parsers.get(device_type)
         
-        if not parser:
-            self.logger.warning(f"No parser found for device type: {device_type}")
-            return self.generic_parse(raw_output, device_type)
-            
-        try:
-            self.logger.debug(f"Parsing output using {device_type} parser")
-            return parser.parse_all(raw_output)
-        except Exception as e:
-            self.logger.error(f"Parser failed for {device_type}: {str(e)}")
-            return self.generic_parse(raw_output, device_type)
+        if parser:
+            try:
+                self.logger.debug(f"Parsing output using {device_type} parser")
+                return parser.parse_all(raw_output)
+            except Exception as e:
+                self.logger.error(f"Parser failed for {device_type}: {str(e)}")
+        
+        # Fallback
+        return self.generic_parse(raw_output, device_type)
     
     def generic_parse(self, raw_output: Dict[str, str], device_type: str) -> Dict[str, Any]:
-        """Fallback parser for unsupported vendors"""
+        """Fallback parser for unsupported vendors like ATS or IO Module"""
         self.logger.info(f"Using generic parser for {device_type}")
         
-        # Try to extract basic info from any version command
-        version_output = raw_output.get('version', '')
+        serial_number = "Unknown"
+        mac_address = "Unknown"
+        
+        # Try to find serial number
+        for cmd, output in raw_output.items():
+            match = re.search(r"Serial\s*Number\s*[:=]\s*(\S+)", output, re.IGNORECASE)
+            if match:
+                serial_number = match.group(1)
+                break
+            match = re.search(r"SN[:=]\s*(\S+)", output, re.IGNORECASE)
+            if match:
+                serial_number = match.group(1)
+                break
+        
+        # Try to find MAC address
+        for cmd, output in raw_output.items():
+            match = re.search(r"([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})", output)
+            if match:
+                mac_address = match.group(0)
+                break
         
         return {
-            'serial_number': 'Unknown',
+            'serial_number': serial_number,
+            'mac_address': mac_address,
             'model': 'Unknown',
             'version': 'Unknown',
             'hostname': 'Unknown',
