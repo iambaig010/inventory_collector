@@ -1,39 +1,17 @@
-cisco_ios:
-- command: show version
-  description: Device version info
-  name: show_version
-  timeout: 30
-- command: show interfaces status
-  description: Interface status
-  name: show_interfaces_status
-  timeout: 30
-- command: show ip interface brief
-  description: IP interface summary
-  name: show_ip_interface_brief
-  timeout: 30
-- command: show running-config
-  description: Running configuration
-  name: show_running_config
-  timeout: 60
-- command: show cdp neighbors detail
-  description: CDP neighbors
-  name: show_cdp_neighbors
-  timeout: 45
-cisco_nxos:
-- command: show version
-  description: Device version info
-  name: show_version
-  timeout: 30
-- command: show interface brief
-  description: Interface summary
-  name: show_interface_brief
-  timeout: 30
-juniper_junos:
-- command: show version
-  description: Device version info
-  name: show_version
-  timeout: 30
-- command: show interfaces terse
-  description: Interface summary
-  name: show_interfaces_terse
-  timeout: 30
+vendors:
+  cisco_ios:
+    commands:
+      version: show version
+      interfaces: show ip interface brief
+      inventory: show inventory
+    timeout: 30
+    delay_factor: 1
+    
+  cisco_xe:
+    commands:
+      version: show version
+      interfaces: show ip interface brief
+      inventory: show inventory
+      platform: show platform
+    timeout: 30
+    delay_factor: 1
