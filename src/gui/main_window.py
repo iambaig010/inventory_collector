@@ -279,7 +279,7 @@ class MainWindow:
         title_frame.pack(side=tk.LEFT, fill=tk.Y)
         
         # App title
-        title_label = ttk.Label(title_frame, text="Switch Inventory Collector Pro", 
+        title_label = ttk.Label(title_frame, text="PortView Pro", 
                                style='Title.TLabel')
         title_label.pack(anchor=tk.W)
         
@@ -586,7 +586,7 @@ class MainWindow:
         content_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
         
         # Header
-        header_label = ttk.Label(content_frame, text="Switch Inventory Collector Pro",
+        header_label = ttk.Label(content_frame, text="PortView Pro",
                                 font=(self.primary_font, 16, 'bold'),
                                 background=self.colors['bg_secondary'],
                                 foreground=self.colors['text_primary'])
@@ -1188,7 +1188,7 @@ QUICK ACCESS
         
         # Welcome message
         self.log_message("=" * 60, "HEADER")
-        self.log_message("SWITCH INVENTORY COLLECTOR PRO", "HEADER")
+        self.log_message("PortView PRO", "HEADER")
         self.log_message("Enterprise Network Device Management System", "HEADER")
         self.log_message("=" * 60, "HEADER")
         self.log_message("System initialized and ready for operation", "SUCCESS")
@@ -1340,7 +1340,7 @@ TROUBLESHOOTING
     def show_about_dialog(self):
         """Show about dialog"""
         about_window = tk.Toplevel(self.root)
-        about_window.title("About Switch Inventory Collector Pro")
+        about_window.title("About PortView Pro")
         about_window.geometry("500x450")
         about_window.transient(self.root)
         about_window.grab_set()
@@ -1354,7 +1354,7 @@ TROUBLESHOOTING
         about_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
         
         # App info
-        ttk.Label(about_frame, text="Switch Inventory Collector Pro",
+        ttk.Label(about_frame, text="PortView Pro",
                  font=(self.primary_font, 16, 'bold'),
                  background=self.colors['bg_secondary'],
                  foreground=self.colors['text_primary']).pack(pady=(0, 5))

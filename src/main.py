@@ -48,7 +48,7 @@ def main():
             tool.excel_handler.create_device_template(template_file)
             print(f"Created device template: {template_file}")
         
-        print("Switch Inventory Tool ready!")
+        print("PortView Tool ready!")
         
     except Exception as e:
         logger.error(f"Error in main: {e}")
