@@ -12,7 +12,7 @@ from src.utils.excel_handler import ExcelHandler
 class MainWindow:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Switch Inventory Collector Pro - by Mohammad Arfin Baig")
+        self.root.title("PortView Pro - by Mohammad Arfin Baig")
         self.root.geometry("1200x800")
         self.root.minsize(1000, 700)
         
