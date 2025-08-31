@@ -1,0 +1,3 @@
+([('main',
+   '/Users/mohammadbaig/Desktop/switch_inventory_tool/dist/main',
+   'EXECUTABLE')],)
